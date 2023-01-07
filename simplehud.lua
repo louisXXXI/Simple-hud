@@ -87,16 +87,6 @@ end
 hook.Add("Think", "updateAmmoBar", updateAmmoBar)
 
 
-hook.Add("HUDShouldDraw", "HideDefaultHUD", function(name)
-  local hide = {
-     ["CHudHealth"] = true,
-     ["CHudBattery"] = true,
-     ["CHudAmmo"] = true,
-     ["CHudSecondaryAmmo"] = true
-  }
-  return not hide[name]
-end)
-
 local textColorConVar = CreateClientConVar("speed_color", "255 255 255", true, false)
 
 cvars.AddChangeCallback("speed_color", function()
@@ -179,7 +169,7 @@ cvars.AddChangeCallback("hud_opacity", function()
     hud:SetAlpha(opacity)
 end)
 
-local colorConVar = CreateClientConVar("hud_color", "255 255 255", true, false)
+local colorConVar = CreateClientConVar("hud_color", "31 31 31", true, false)
 
 cvars.AddChangeCallback("hud_color", function()
     local color = colorConVar:GetString()
@@ -194,8 +184,22 @@ cvars.AddChangeCallback("hud_color", function()
 end)
 
 
+// remove hud when the player die
+hook.Add("Think", "hidePanelOnDeath", function()
+    if (LocalPlayer():Alive() == false) then
+        hud:SetVisible(false)
+    else
+        hud:SetVisible(true)
+    end
+end)
 
-
-
-
-
+// remove default hud elements
+hook.Add("HUDShouldDraw", "HideDefaultHUD", function(name)
+    local hide = {
+       ["CHudHealth"] = true,
+       ["CHudBattery"] = true,
+       ["CHudAmmo"] = true,
+       ["CHudSecondaryAmmo"] = true
+    }
+    return not hide[name]
+  end)
