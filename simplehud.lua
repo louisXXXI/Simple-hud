@@ -16,14 +16,10 @@ surface.CreateFont( "yes", {
 	outline = true,
 } )
 
-
 local hud = vgui.Create("DPanel")
 hud:SetPos(10, 10)
 hud:SetSize(200, 25) 
 hud:SetBackgroundColor(Color(31, 31, 31)) 
-
-
-
 
 local speedLabel = vgui.Create("DLabel", hud)
 speedLabel:SetPos(125, 5)
@@ -99,4 +95,65 @@ hook.Add("HUDShouldDraw", "HideDefaultHUD", function(name)
      ["CHudSecondaryAmmo"] = true
   }
   return not hide[name]
+end)
+
+local textColorConVar = CreateClientConVar("speed_color", "255 255 255", true, false)
+
+cvars.AddChangeCallback("speed_color", function()
+    
+    local textColor = textColorConVar:GetString()
+    
+    local r, g, b = string.match(textColor, "(%d+) (%d+) (%d+)")
+    
+    r = tonumber(r)
+    g = tonumber(g)
+    b = tonumber(b)
+    
+    speedLabel:SetColor(Color(r, g, b))
+end)
+
+
+local textColorConVar = CreateClientConVar("health_color", "255 255 255", true, false)
+
+cvars.AddChangeCallback("health_color", function()
+    
+    local textColor = textColorConVar:GetString()
+    
+    local r, g, b = string.match(textColor, "(%d+) (%d+) (%d+)")
+    
+    r = tonumber(r)
+    g = tonumber(g)
+    b = tonumber(b)
+    
+    healthLabel:SetColor(Color(r, g, b))
+end)
+
+local textColorConVar = CreateClientConVar("armor_color", "255 255 255", true, false)
+
+cvars.AddChangeCallback("armor_color", function()
+    
+    local textColor = textColorConVar:GetString()
+    
+    local r, g, b = string.match(textColor, "(%d+) (%d+) (%d+)")
+    
+    r = tonumber(r)
+    g = tonumber(g)
+    b = tonumber(b)
+    
+    armorLabel:SetColor(Color(r, g, b))
+end)
+
+local textColorConVar = CreateClientConVar("ammo_color", "255 255 255", true, false)
+
+cvars.AddChangeCallback("ammo_color", function()
+    
+    local textColor = textColorConVar:GetString()
+
+    local r, g, b = string.match(textColor, "(%d+) (%d+) (%d+)")
+    
+    r = tonumber(r)
+    g = tonumber(g)
+    b = tonumber(b)
+    
+    ammoLabel:SetColor(Color(r, g, b))
 end)
