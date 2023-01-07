@@ -157,3 +157,45 @@ cvars.AddChangeCallback("ammo_color", function()
     
     ammoLabel:SetColor(Color(r, g, b))
 end)
+
+local positionConVar = CreateClientConVar("hud_position", "0 0", true, false)
+
+cvars.AddChangeCallback("hud_position", function()
+    local position = positionConVar:GetString()
+    
+    local x, y = string.match(position, "(%-?%d+) (%-?%d+)")
+    
+    x = tonumber(x)
+    y = tonumber(y)
+    
+    hud:SetPos(x, y)
+end)
+
+
+local opacityConVar = CreateClientConVar("hud_opacity", "255", true, false)
+
+cvars.AddChangeCallback("hud_opacity", function()
+    local opacity = opacityConVar:GetInt()
+    hud:SetAlpha(opacity)
+end)
+
+local colorConVar = CreateClientConVar("hud_color", "255 255 255", true, false)
+
+cvars.AddChangeCallback("hud_color", function()
+    local color = colorConVar:GetString()
+    
+    local r, g, b = string.match(color, "(%d+) (%d+) (%d+)")
+    
+    r = tonumber(r)
+    g = tonumber(g)
+    b = tonumber(b)
+    
+    hud:SetBackgroundColor(Color(r, g, b))
+end)
+
+
+
+
+
+
+
