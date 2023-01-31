@@ -205,7 +205,7 @@ hook.Add("HUDShouldDraw", "HideDefaultHUD", function(name)
   end)
 
   // reset hud color and position
-  local function reset_hud()
+  local function reset_hud_color()
     RunConsoleCommand( "health_color", "255 255 255" )
     RunConsoleCommand( "armor_color", "255 255 255" )
     RunConsoleCommand( "speed_color", "255 255 255" )
